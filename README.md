@@ -84,6 +84,8 @@ This ensures that:
 - Matplotlib uses the project-local `.mplconfig`
 - all plotting settings are consistent and reproducible
 
+A project local install matplotlib will be used via the Julia Conda package. The directory .conda/pkgs is a cache and may be safely deleted at any time to reclaim disk space.
+
 ---
 
 ## Notes on reproducibility
@@ -102,3 +104,4 @@ This ensures that:
   in a **fresh Julia session** usually resolves them.
 
 ---
+
