@@ -487,18 +487,33 @@ end
 function import_sweep_dicts( dir_name, M, T, mu )
     NSAMPS=Float64(M)
     all_sweep_files_strings=readdir(dir_name)
-    tttlll = []
-    for swp_file_name in all_sweep_files_strings
-        swp_file_T = parse(Float64, split(swp_file_name, "_")[3][3:end])
-        if occursin(string(NSAMPS) , swp_file_name ) && ((swp_file_T==T) && occursin( string(mu), swp_file_name))
+    # Collect (replicate number, loaded dict) so we can return them in NUMERIC rep order.
+    # readdir() returns lexicographic order, which for unpadded "..._<rep>.jld2" suffixes is
+    # 1, 10, 2, 3, ..., 9 — NOT numeric. Every downstream consumer indexes the per-replicate
+    # vectors positionally (load_from_sweeps assigns row k by enumeration order, and the
+    # plotting/analysis code reads e.g. J_fit[r,:,:] or dkl_blue_tau_opts[r]). If we appended
+    # in readdir order, position k would not be replicate k, silently misaligning each rep's
+    # fit/data with its tau*. Parsing the rep and sorting here makes position == rep, once,
+    # for the whole codebase.
+    matched = Tuple{Int, Any}[]
+    for swp_file_name in filter(f -> endswith(f, ".jld2"), all_sweep_files_strings)
+        parts = split(swp_file_name, "_")
+        length(parts) < 5 && continue
+        swp_file_T = parse(Float64, parts[3][3:end])
+        swp_file_mu = parts[2][4:end]
+        swp_file_nsamps = parse(Float64, parts[4][8:end])
+        if swp_file_nsamps == NSAMPS && swp_file_T == T && swp_file_mu == string(mu)
+            rep_num = parse(Int, split(splitext(swp_file_name)[1], "_")[end])  # trailing "_<rep>"
             T_vs_T̂_calcs_=JLD2.load(joinpath(dir_name,swp_file_name ) )
-            append!(tttlll ,[T_vs_T̂_calcs_]) 
-            # @show swp_file_name
-            # mu = parse(Float64,split( swp_file_name, "_" )[2][4:end])
+            push!(matched, (rep_num, T_vs_T̂_calcs_))
         end
     end
-    # @show size( tttlll)
-    return tttlll
+    sort!(matched, by = first)
+    reps_found = first.(matched)
+    if !isempty(reps_found) && reps_found != collect(1:length(reps_found))
+        @warn "import_sweep_dicts: replicate files are not a contiguous 1:N set; positional rep alignment may be off" dir=dir_name M=M T=T reps=reps_found
+    end
+    return Any[d for (_, d) in matched]
 end
 # for a given T and M
     # pull the following:

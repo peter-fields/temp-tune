@@ -634,7 +634,7 @@ ax[2].legend(frameon=false,
 # vlines( 1, 0.8*minimum([dkl_blue; dkl_red]) , 1.1*maximum([dkl_blue;dkl_red]), color="k", 
 #     label="inferred")
 ax[2].set_xticks(collect(1:3))
-lblss=["low\nenergy\nstates", "missed\n\n                  high energy states", "found"]
+lblss=["high\nenergy\nstates", "missed\n\n                  low energy states", "found"]
 ax[2].set_xticklabels(lblss)#, fontsize=ticksize)
 ax[2].spines["left"].set_visible(false)
 ax[2].spines["top"].set_visible(false)
