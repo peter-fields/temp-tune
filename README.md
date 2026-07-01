@@ -59,26 +59,25 @@ This will:
 
 ## Data availability
 
-From the root of your cloned `temp-tune` repository, run:
+The simulation data for both figures is hosted on Hugging Face. From the **root** of your cloned `temp-tune` repository, run:
 
 ```bash
-# create data directory
-mkdir -p data
-cd data
-
 # install git-lfs if not already installed
 git lfs install
 
-# clone the dataset directly into the expected folder
-git clone https://huggingface.co/datasets/peter-fields/temp-tune-data ising_sweeps
+# clone the dataset into ./data (creates both required subfolders)
+git clone https://huggingface.co/datasets/peter-fields/temp-tune-data data
 ```
-This ensures the following directory structure required:
+This produces the required directory structure:
 ```
 temp-tune/
 └── data/
-    └── ising_sweeps/
-        (data files here)
+    ├── ising_sweeps/         # nearest-neighbor Ising sweeps  (Fig. 3)
+    │   └── constant_M_*/ ...
+    └── simple_model_sweeps/  # two-level toy-model sweeps     (Fig. 2)
+        └── Nstates=*_nground=*.jld2
 ```
+> **Note:** run this from the repository root. If a `data/` directory already exists, clone into a temporary location and move `ising_sweeps/` and `simple_model_sweeps/` into `data/`. (The dataset also brings its own `README.md` and `.gitattributes` into `data/`; these are harmless.)
 
 ---
 
