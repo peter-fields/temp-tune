@@ -107,14 +107,6 @@ summary dicts committed alongside them (no separate download needed):
   (per-state probabilities, per-state reversed-D_KL contribution, per-level D_KL decomposition).
   Data: `all_temp_level_dict.jld2`, `hld_dict_for_last_figs.jld2`. Light (plots from dicts only).
 
-These reproduce the underlying panels; the published PDFs were composited in Inkscape. Reproduced
-SVGs are written to `plots/supplemental/`.
-
-The per-level D_KL data (`all_temp_level_dict.jld2`) came from an **independent re-sampling +
-re-fitting sweep** (not a decomposition of the raw sweeps on Hugging Face), so it is committed here
-directly. The only omission from the published figures is the faint energy-level gridlines in fig4
-Panel A (from `make_hist_edges`), left out as cosmetic.
-
 ---
 
 ## Using this project
