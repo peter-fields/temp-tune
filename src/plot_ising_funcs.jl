@@ -41,11 +41,11 @@ function plot_one_ising_replicate(ax, df_raw_all_reps, M, T, r, J_gt, ml_bf, e_b
 
     br=ax[3].bar( xxss[idcss].-0.19 , rel_surpise[:gt][idcss], width=0.25, 
             edgecolor=coral_rgb1, facecolor=coral_rgba,
-                    label=L"D_{KL}(p_T || \hat q)\cap\Lambda_i", hatch="\\\\",
+                    label=L"d_{KL}(p_T || \hat q)_{\Lambda_i}", hatch="\\\\",
             rasterized = true)
     bb=ax[3].bar( xxss[idcss].+0.19 , rel_surpise[:fit][idcss] , width=0.25, 
         ec=steelblue_rgba1, facecolor=steelblue_rgba,
-                    label=L"D_{KL}(\hat q||p_T)\cap\Lambda_i", hatch="\\\\" ,
+                    label=L"d_{KL}(\hat q||p_T)_{\Lambda_i}", hatch="\\\\" ,
         rasterized = true);
     for l in 1:length(bb)
         bb[l]._hatch_color, br[l]._hatch_color = ntuple(i->matplotlib.colors.to_rgba("white"),2)
