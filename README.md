@@ -1,6 +1,9 @@
 # temp-tune
 
-This repository contains the code and materials for the paper “Understanding temperature tuning in energy-based models” by Peter William Fields, Vudtiwat Ngampruetikorn, David J. Schwab, and Stephanie E. Palmer. arXiv ID: 2512.09152, ( https://www.arxiv.org/pdf/2512.09152 )
+This repository contains the code and materials for the paper “Understanding temperature tuning in energy-based models” by Peter William Fields, Vudtiwat Ngampruetikorn, David J. Schwab, and Stephanie E. Palmer, published in *Physical Review Research* **8**, 043137 (2026).
+
+- DOI: [10.1103/g8cm-7ps7](https://doi.org/10.1103/g8cm-7ps7)
+- arXiv: [2512.09152](https://www.arxiv.org/pdf/2512.09152)
 
 ---
 
